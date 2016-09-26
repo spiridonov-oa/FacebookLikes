@@ -1,51 +1,52 @@
-var likeBtnSelector = '.UFILikeLink:not(.UFILinkBright)';
-var pageLikeBtnSelector = '.likeButton';
-var counter = 0;
-var stop = false;
+const likeBtnSelector = '.UFILikeLink:not(.UFILinkBright)';
+const pageLikeBtnSelector = '.likeButton';
+let counter = 0;
+const stop = false;
 
-function pageLike () {
-	var pageLikeBtn = [...document.querySelectorAll(pageLikeBtnSelector)];
-	if (pageLikeBtn[0]) {
-		pageLikeBtn[0].click();
-	}
+function pageLike() {
+  const pageLikeBtn = [...document.querySelectorAll(pageLikeBtnSelector)];
+  if (pageLikeBtn[0]) {
+    pageLikeBtn[0].click();
+  }
 }
 
 function clickAllAvalableLikes(arrBtns) {
-	arrBtns.forEach(function(el,i) {
-		setTimeout(() => {
-			el.click();
-			console.log( (i + 1) + ' - liked ;) of ' + arrBtns.length);
-			console.log( ++counter + ' - posts liked' );
-			if (i === arrBtns.length - 1) {
-				likeAll();
-			}
-		}, i*2000);
-	});
+  arrBtns.forEach((el, i) => {
+    setTimeout(() => {
+      el.click();
+      counter += 1;
+      console.log(`${i + 1} - liked ;) of ${arrBtns.length}`);
+      console.log(`${counter} - posts liked`);
+      if (i === arrBtns.length - 1) {
+        likeAll();
+      }
+    }, i * 2000);
+  });
 }
 
-function likeAll () {
-	if(stop) {
-		return;
-	}
-	pageLike();
-	setTimeout(()=>{
-		window.scrollTo(0,10000000);
-		console.log('scrolled');
-		var likeBtns = [...document.querySelectorAll(likeBtnSelector)];
-		if (!likeBtns.length) {
-			likeAll();
-		}
-		clickAllAvalableLikes(likeBtns);
-
-	}, 1000);
+function likeAll() {
+  if (stop) {
+    return;
+  }
+  pageLike();
+  setTimeout(() => {
+    window.scrollTo(0, 10000000);
+    console.log('scrolled');
+    const likeBtns = [...document.querySelectorAll(likeBtnSelector)];
+    if (!likeBtns.length) {
+      likeAll();
+    }
+    clickAllAvalableLikes(likeBtns);
+  }, 1000);
 }
 
 function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
+  let currentIndex = array.length;
+  let temporaryValue;
+  let randomIndex;
 
   // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
+  while (currentIndex !== 0) {
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
@@ -59,27 +60,25 @@ function shuffle(array) {
   return array;
 }
 
-function likeRandom (interval) {
-	if(stop) {
-		return;
-	}
-	pageLike();
-	setTimeout(()=>{
-		window.scrollTo(0,10000000);
-		console.log('scrolled');
-		var likeBtns = [...document.querySelectorAll(likeBtnSelector)];
-		if (!likeBtns.length) {
-			likeAll();
-		}
-		//ToDo: Now it is not actually random. 
-		// likeBtns - select unliked btns after every scroll
-		var randomBtns = shuffle(likeBtns).slice(0, likeBtns.length/2); 
-		clickAllAvalableLikes(randomBtns);
-
-	}, 1000);
+function likeRandom(interval) {
+  if (stop) {
+    return;
+  }
+  pageLike();
+  setTimeout(() => {
+    window.scrollTo(0, 10000000);
+    console.log('scrolled');
+    const likeBtns = [...document.querySelectorAll(likeBtnSelector)];
+    if (!likeBtns.length) {
+      likeAll();
+    }
+    // TODO: Now it is not actually random.
+    // likeBtns - select unliked btns after every scroll
+    const randomBtns = shuffle(likeBtns).slice(0, likeBtns.length / 2);
+    clickAllAvalableLikes(randomBtns);
+  }, 1000);
 }
 
-function randomIntFromInterval(min,max)
-{
-    return Math.floor(Math.random()*(max-min+1)+min);
+function randomIntFromInterval(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
