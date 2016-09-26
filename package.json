@@ -2,7 +2,7 @@
   "name": "facebook-likes",
   "version": "1.0.0",
   "description": "Like your friend's posts, maintain your friendship",
-  "main": "FaceBookLikesScript.js",
+  "main": "facebookLikes.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
