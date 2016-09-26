@@ -1,6 +1,14 @@
 var likeBtnSelector = '.UFILikeLink:not(.UFILinkBright)';
+var pageLikeBtnSelector = '.likeButton';
 var counter = 0;
 var stop = false;
+
+function pageLike () {
+	var pageLikeBtn = [...document.querySelectorAll(pageLikeBtnSelector)];
+	if (pageLikeBtn[0]) {
+		pageLikeBtn[0].click();
+	}
+}
 
 function clickAllAvalableLikes(arrBtns) {
 	arrBtns.forEach(function(el,i) {
@@ -19,6 +27,7 @@ function likeAll () {
 	if(stop) {
 		return;
 	}
+	pageLike();
 	setTimeout(()=>{
 		window.scrollTo(0,10000000);
 		console.log('scrolled');
@@ -54,6 +63,7 @@ function likeRandom (interval) {
 	if(stop) {
 		return;
 	}
+	pageLike();
 	setTimeout(()=>{
 		window.scrollTo(0,10000000);
 		console.log('scrolled');
